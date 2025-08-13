@@ -1,0 +1,57 @@
+/* Make the main content area fill the available space */
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+}
+
+main.container {
+    flex: 1;
+    overflow-y: auto; /* Allow scrolling for the main content */
+    padding-bottom: 120px; /* Space for the player footer */
+}
+
+/* Sticky footer for the player */
+#player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--card-background-color);
+    border-top: 1px solid var(--card-border-color);
+    padding: var(--spacing);
+    z-index: 10;
+}
+
+#player .grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    gap: var(--spacing);
+}
+
+.player-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing);
+}
+
+.player-info strong {
+    margin: 0;
+}
+
+.player-info small {
+    color: var(--muted-color);
+}
+
+.lyrics-container {
+    margin: 0;
+}
+
+#lyrics-display {
+    max-height: 200px;
+    overflow-y: auto;
+    white-space: pre-wrap;
+    word-break: break-word;
+}
