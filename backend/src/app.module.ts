@@ -8,7 +8,11 @@ import { SongsModule } from './songs/songs.module.js';
 import { PlaylistsModule } from './playlists/playlists.module.js';
 import { AdminModule } from './admin/admin.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
+import { join, dirname } from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 @Module({
   imports: [
