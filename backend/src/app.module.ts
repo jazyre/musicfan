@@ -6,19 +6,23 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module.js';
 import { SongsModule } from './songs/songs.module.js';
 import { PlaylistsModule } from './playlists/playlists.module.js';
-import { AdminModule } from './admin/admin.module.js';
+// AdminModule دیگر در اینجا استفاده نمی‌شود
+// import { AdminModule } from './admin/admin.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
+import { User } from './users/entities/user.entity.js';
+import { Song } from './songs/entities/song.entity.js';
+import { Playlist } from './playlists/entities/playlist.entity.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 @Module({
   imports: [
-    AdminModule,
+    // AdminModule, // <-- این خط حذف شد
     ConfigModule.forRoot({
-      isGlobal: true, // Makes ConfigModule available globally
+      isGlobal: true,
     }),
     ServeStaticModule.forRoot({
       rootPath: join(__dirname, '..', '..', 'uploads'),
@@ -33,8 +37,8 @@ const __dirname = dirname(__filename);
         username: configService.get<string>('DATABASE_USER'),
         password: configService.get<string>('DATABASE_PASSWORD'),
         database: configService.get<string>('DATABASE_NAME'),
-        autoLoadEntities: true,
-        synchronize: true, // In development, this syncs the DB schema with entities. Not for production!
+        entities: [User, Song, Playlist],
+        synchronize: true,
       }),
       inject: [ConfigService],
     }),
