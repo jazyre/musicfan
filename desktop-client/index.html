@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Music Player</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'; style-src 'self' https://cdn.jsdelivr.net">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <main class="container">
+        <header>
+            <h1>Music Player</h1>
+        </header>
+
+        <div class="grid">
+            <section>
+                <h2 id="playlists-header">Playlists</h2>
+                <div id="playlist-list">
+                    <!-- Playlists will be loaded here -->
+                </div>
+            </section>
+            <section>
+                <h2 id="songs-header">Songs</h2>
+                <div id="song-list">
+                    <!-- Songs will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer id="player">
+        <div class="container">
+            <div class="grid">
+                <div class="player-info">
+                    <img id="player-cover" src="" alt="Cover" width="50" height="50" style="display: none;">
+                    <strong id="player-song-title">Select a song to play</strong>
+                    <small id="player-song-artist"></small>
+                </div>
+                <audio id="audio-player" controls></audio>
+                <details class="lyrics-container">
+                    <summary>Lyrics</summary>
+                    <pre id="lyrics-display">No lyrics available.</pre>
+                </details>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./renderer.js"></script>
+</body>
+</html>
