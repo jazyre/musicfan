@@ -1,6 +1,6 @@
 import { Controller, Get, Param, NotFoundException, ParseIntPipe } from '@nestjs/common';
-import { SongsService } from './songs.service';
-import { Song } from './entities/song.entity';
+import { SongsService } from './songs.service.js';
+import { Song } from './entities/song.entity.js';
 
 @Controller('songs')
 export class SongsController {

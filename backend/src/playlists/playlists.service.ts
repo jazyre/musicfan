@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Playlist } from './entities/playlist.entity';
+import { Playlist } from './entities/playlist.entity.js';
 
 @Injectable()
 export class PlaylistsService {

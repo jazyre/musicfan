@@ -1,15 +1,17 @@
 import { Module } from '@nestjs/common';
-import AdminJS, { AdminJSOptions, buildFeature, CurrentAdmin } from 'adminjs';
+import AdminJS, { AdminJSOptions, CurrentAdmin } from 'adminjs';
 import { AdminModule as AdminJSModule, AdminModuleOptions } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/typeorm';
 import { DataSource } from 'typeorm';
 import * as bcrypt from 'bcrypt';
 import { ConfigService } from '@nestjs/config';
 
-import { User } from '../users/entities/user.entity';
-import { Song } from '../songs/entities/song.entity';
-import { Playlist } from '../playlists/entities/playlist.entity';
-import { componentLoader } from './component-loader';
+import uploadFeature from '@adminjs/upload';
+
+import { User } from '../users/entities/user.entity.js';
+import { Song } from '../songs/entities/song.entity.js';
+import { Playlist } from '../playlists/entities/playlist.entity.js';
+import { componentLoader } from './component-loader.js';
 
 AdminJS.registerAdapter({ Database, Resource });
 
@@ -32,15 +34,27 @@ AdminJS.registerAdapter({ Database, Resource });
                 },
               },
               features: [
-                buildFeature({
+                uploadFeature({
                   componentLoader,
                   provider: { local: { bucket: 'uploads/audio', opts: { baseUrl: '/uploads/audio' } } },
-                  uploadPath: 'uploads/audio',
+                  uploadPath: (record, filename) => `${record.get('id')}-${filename}`,
+                  properties: {
+                    key: 'audioPath',
+                    file: 'uploadAudio',
+                    filePath: 'audioPath',
+                    filesToDelete: 'audioPath',
+                  },
                 }),
-                buildFeature({
+                uploadFeature({
                   componentLoader,
                   provider: { local: { bucket: 'uploads/covers', opts: { baseUrl: '/uploads/covers' } } },
-                  uploadPath: 'uploads/covers',
+                  uploadPath: (record, filename) => `${record.get('id')}-cover-${filename}`,
+                  properties: {
+                    key: 'coverPath',
+                    file: 'uploadCover',
+                    filePath: 'coverPath',
+                    filesToDelete: 'coverPath',
+                  },
                 }),
               ],
             },

@@ -1,4 +1,4 @@
-import { Song } from '../../songs/entities/song.entity';
+import { Song } from '../../songs/entities/song.entity.js';
 import {
   Entity,
   PrimaryGeneratedColumn,

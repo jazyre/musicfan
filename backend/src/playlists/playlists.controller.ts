@@ -1,6 +1,6 @@
 import { Controller, Get, Param, NotFoundException, ParseIntPipe } from '@nestjs/common';
-import { PlaylistsService } from './playlists.service';
-import { Playlist } from './entities/playlist.entity';
+import { PlaylistsService } from './playlists.service.js';
+import { Playlist } from './entities/playlist.entity.js';
 
 @Controller('playlists')
 export class PlaylistsController {

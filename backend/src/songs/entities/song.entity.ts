@@ -1,4 +1,4 @@
-import { Playlist } from '../../playlists/entities/playlist.entity';
+import { Playlist } from '../../playlists/entities/playlist.entity.js';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany } from 'typeorm';
 
 @Entity()

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { AppController } from './app.controller.js';
+import { AppService } from './app.service.js';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { UsersModule } from './users/users.module';
-import { SongsModule } from './songs/songs.module';
-import { PlaylistsModule } from './playlists/playlists.module';
-import { AdminModule } from './admin/admin.module';
+import { UsersModule } from './users/users.module.js';
+import { SongsModule } from './songs/songs.module.js';
+import { PlaylistsModule } from './playlists/playlists.module.js';
+import { AdminModule } from './admin/admin.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 
