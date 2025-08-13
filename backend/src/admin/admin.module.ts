@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import AdminJS, { AdminJSOptions, buildFeature } from 'adminjs';
+import AdminJS, { AdminJSOptions, buildFeature, CurrentAdmin } from 'adminjs';
 import { AdminModule as AdminJSModule, AdminModuleOptions } from '@adminjs/nestjs';
 import { Database, Resource } from '@adminjs/typeorm';
 import { DataSource } from 'typeorm';
@@ -35,19 +35,11 @@ AdminJS.registerAdapter({ Database, Resource });
                 buildFeature({
                   componentLoader,
                   provider: { local: { bucket: 'uploads/audio', opts: { baseUrl: '/uploads/audio' } } },
-                  properties: {
-                    key: 'audioPath',
-                    file: 'audioPath',
-                  },
                   uploadPath: 'uploads/audio',
                 }),
                 buildFeature({
                   componentLoader,
                   provider: { local: { bucket: 'uploads/covers', opts: { baseUrl: '/uploads/covers' } } },
-                  properties: {
-                    key: 'coverPath',
-                    file: 'coverPath',
-                  },
                   uploadPath: 'uploads/covers',
                 }),
               ],
@@ -59,17 +51,23 @@ AdminJS.registerAdapter({ Database, Resource });
           },
         },
         auth: {
-          authenticate: async (email, password) => {
+          authenticate: async (email, password): Promise<CurrentAdmin | null> => {
             const userRepo = dataSource.getRepository(User);
             const user = await userRepo.findOneBy({ username: email });
             if (user) {
               const matched = await bcrypt.compare(password, user.password);
               if (matched) {
-                return user;
+                return {
+                  ...user,
+                  id: user.id.toString(),
+                  email: user.username,
+                  title: user.username,
+                };
               }
             }
-            return false;
+            return null;
           },
+          cookieName: 'admin-session',
           cookiePassword: configService.get('ADMIN_COOKIE_PASSWORD', 'a-secret-password'),
         },
         sessionOptions: {
