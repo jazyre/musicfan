@@ -6,8 +6,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UsersModule } from './users/users.module.js';
 import { SongsModule } from './songs/songs.module.js';
 import { PlaylistsModule } from './playlists/playlists.module.js';
-// AdminModule دیگر در اینجا استفاده نمی‌شود
-// import { AdminModule } from './admin/admin.module.js';
+import { AdminModule } from './admin/admin.module.js';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
@@ -20,7 +19,7 @@ const __dirname = dirname(__filename);
 
 @Module({
   imports: [
-    // AdminModule, // <-- این خط حذف شد
+    AdminModule,
     ConfigModule.forRoot({
       isGlobal: true,
     }),

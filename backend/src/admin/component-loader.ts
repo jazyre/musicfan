@@ -2,4 +2,7 @@ import { ComponentLoader } from 'adminjs';
 
 export const componentLoader = new ComponentLoader();
 
-componentLoader.add('upload', './components/upload.component');
+// Add any custom components here
+// componentLoader.add('upload', './components/upload.component');
+
+export default componentLoader;

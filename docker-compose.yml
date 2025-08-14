@@ -14,6 +14,8 @@ services:
       - DATABASE_USER=admin
       - DATABASE_PASSWORD=password
       - DATABASE_NAME=music_db
+      - ENABLE_ADMIN=1
+      - ADMIN_NOAUTH=1
     restart: always
     deploy:
       resources:
